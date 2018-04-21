@@ -1,12 +1,21 @@
 <?php
 
-$url = parse_url(getenv("DATABASE_URL"));
-$host = $url['host'];
-$port = $url['port'];
-$username = $url['user'];
-$password = $url['pass'];
-$database = substr($url['path'], 1);
+if(env("DATABASE_MODE") != NULL){
+    return [
+        'default' => env('DB_CONNECTION', 'mysql'),
+    ];
+} else {
+    $url = parse_url(getenv("DATABASE_URL"));
+    $host = $url['host'];
+    $port = $url['port'];
+    $username = $url['user'];
+    $password = $url['pass'];
+    $database = substr($url['path'], 1);
 
+    return [
+        'default' => env('DB_CONNECTION', 'pgsql_production'),
+    ];
+}
 return [
 
     /*
@@ -19,8 +28,6 @@ return [
     | you may use many connections at once using the Database library.
     |
     */
-
-    'default' => env('DB_CONNECTION', 'pgsql_production'),
 
     /*
     |--------------------------------------------------------------------------
