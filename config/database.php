@@ -32,7 +32,6 @@ if(env("DATABASE_MODE") != NULL){
         ],
     ];
 } else {
-    dump("TU");
     $url = parse_url(getenv("DATABASE_URL"));
     $host = $url['host'];
     $port = $url['port'];
